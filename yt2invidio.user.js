@@ -2,10 +2,10 @@
 // @name        YT2Invidio
 // @namespace   de.izzysoft
 // @author      Izzy + ltGuillaume
-// @description Point YouTube links to Invidious, Twitter to Nitter, Instagram to Bibliogram, Reddit to Teddit, Imgur to Rimgo, Medium to Scribe, TikTok to ProxiTok, Fandom to BreezeWiki, IMDb to libremdb. Use Ctrl+Alt+click to open in original service, or alt+o in the instances to open the the original site.
+// @description Point YouTube links to Invidious, Twitter to Nitter, Instagram to Bibliogram, Reddit to Redlib, Imgur to Rimgo, Medium to Scribe, TikTok to ProxiTok, Fandom to BreezeWiki, IMDb to libremdb. Use Ctrl+Alt+click to open in original service, or alt+o in the instances to open the the original site.
 // @license     CC BY-NC-SA
 // @include     *
-// @version     2.9.5
+// @version     2.9.6
 // @run-at      document-idle
 // @grant       GM.getValue
 // @grant       GM.setValue
@@ -22,7 +22,7 @@ const instancesLists = {
   invidious:  'https://github.com/iv-org/documentation/blob/master/Invidious-Instances.md',
   nitter:     'https://github.com/zedeus/nitter/wiki/Instances',
   bibliogram: 'https://git.sr.ht/~cadence/bibliogram-docs/tree/master/docs/Instances.md',
-  teddit:     'https://codeberg.org/teddit/teddit#instances',
+  redlib:     'https://github.com/redlib-org/redlib-instances/blob/main/instances.md',
   rimgo:      'https://codeberg.org/video-prize-ranch/rimgo#instances',
   scribe:     'https://git.sr.ht/~edwardloveall/scribe/tree/main/docs/instances.md',
   proxitok:   'https://github.com/pablouser1/ProxiTok',
@@ -30,11 +30,11 @@ const instancesLists = {
   libremdb:   'https://github.com/zyachel/libremdb#instances'
 },
 
-  orgHosts = { invidious: 'youtu.be', nitter: 'twitter.com', bibliogram: 'instagram.com', teddit: 'old.reddit.com', rimgo: 'imgur.com', scribe: 'medium.com', proxitok: 'tiktok.com', breezewiki: 'fandom.com', libremdb: 'imdb.com' };
+  orgHosts = { invidious: 'youtu.be', nitter: 'twitter.com', bibliogram: 'instagram.com', redlib: 'old.reddit.com', rimgo: 'imgur.com', scribe: 'medium.com', proxitok: 'tiktok.com', breezewiki: 'fandom.com', libremdb: 'imdb.com' };
 
 // Default config
 const defaultConfig = {
-  hosts: { invidious: 'yewtu.be', nitter: 'nitter.net', bibliogram: 'farside.link/_/bibliogram', teddit: 'teddit.net', rimgo: 'rimgo.pussthecat.org', scribe: 'scribe.rip', proxitok: 'proxitok.pabloferreiro.es', breezewiki: 'breezewiki.pussthecat.org', libremdb: 'libremdb.pussthecat.org' },
+  hosts: { invidious: 'yewtu.be', nitter: 'farside.link/_/nitter', bibliogram: 'farside.link/_/bibliogram', redlib: 'redlib.pussthecat.org', rimgo: 'rimgo.pussthecat.org', scribe: 'scribe.rip', proxitok: 'proxitok.pabloferreiro.es', breezewiki: 'breezewiki.pussthecat.org', libremdb: 'libremdb.pussthecat.org' },
   invProxy: 0,
   onHover: 0
 };
@@ -57,7 +57,7 @@ function init(config) {
     ', invProxy: ',   cfg.invProxy,
     '\nNitter:',      cfg.hosts.nitter,
     '\nBibliogram:',  cfg.hosts.bibliogram,
-    '\nTeddit:',      cfg.hosts.teddit,
+    '\nRedlib:',      cfg.hosts.redlib,
     '\nRimgo:',       cfg.hosts.rimgo,
     '\nScribe:',      cfg.hosts.scribe,
     '\nProxiTok:',    cfg.hosts.proxitok,
@@ -122,9 +122,9 @@ function rewriteLink(elem) {
   else if (cfg.hosts.bibliogram != '' && elem.href.match(/(www\.)?instagram\.com\/([^&#/]+)/i))  // Image or video
     elem.href = 'https://'+ cfg.hosts.bibliogram +'/u/' + RegExp.$2;
 
-  // Teddit
-  else if (cfg.hosts.teddit != '' && !elem.href.match(/\/(duplicates\/|submit\?selftext|submit$|create$)/i) && elem.href.match(/(www\.|old\.)?reddit\.com(?!\/message|\/chat|\/prefs|\/gold)(.*)/i))
-    elem.href = 'https://'+ cfg.hosts.teddit + RegExp.$2 + RegExp.$3;
+  // Redlib
+  else if (cfg.hosts.redlib != '' && !elem.href.match(/\/(duplicates\/|submit\?selftext|submit$|create$)/i) && elem.href.match(/(www\.|old\.)?reddit\.com(?!\/message|\/chat|\/prefs|\/gold)(.*)/i))
+    elem.href = 'https://'+ cfg.hosts.redlib + RegExp.$2 + RegExp.$3;
 
   // Rimgo
   else if (cfg.hosts.rimgo != '' && elem.href.match(/((www|i)\.)?imgur\.com\/(.*)/i))
@@ -228,24 +228,24 @@ function openInstancesList(service) {
   GM.openInTab(instancesLists[service], { active: true, insert: true });
 }
 
-GM.registerMenuCommand('Working instances',    () => GM.openInTab('https://farside.link'));
-GM.registerMenuCommand('Bibliogram instance',      () => setInstance('bibliogram'));
+GM.registerMenuCommand('Working instances',          () => GM.openInTab('https://farside.link'));
+GM.registerMenuCommand('Bibliogram instance',        () => setInstance('bibliogram'));
 //GM.registerMenuCommand('Bibliogram instance list', () => openInstancesList('bibliogram'));
-GM.registerMenuCommand('BreezeWiki instance',      () => setInstance('breezewiki'));
+GM.registerMenuCommand('BreezeWiki instance',        () => setInstance('breezewiki'));
 //GM.registerMenuCommand('BreezeWiki instance list', () => openInstancesList('breezewiki'));
-GM.registerMenuCommand('Rimgo instance',           () => setInstance('rimgo'));
+GM.registerMenuCommand('Rimgo instance',             () => setInstance('rimgo'));
 //GM.registerMenuCommand('Rimgo instance list',      () => openInstancesList('rimgo'));
-GM.registerMenuCommand('Invidious instance',       () => setInstance('invidious'));
+GM.registerMenuCommand('Invidious instance',         () => setInstance('invidious'));
 //GM.registerMenuCommand('Invidious instance list',  () => openInstancesList('invidious'));
-GM.registerMenuCommand('Toggle Invidious proxy',   toggleInvidiousProxy);
-GM.registerMenuCommand('libremdb instance',      () => setInstance('libremdb'));
-//GM.registerMenuCommand('libremdb instance list', () => openInstancesList('libremdb'));
-GM.registerMenuCommand('Nitter instance',          () => setInstance('nitter'));
+GM.registerMenuCommand('Toggle Invidious proxy', toggleInvidiousProxy);
+GM.registerMenuCommand('libremdb instance',          () => setInstance('libremdb'));
+//GM.registerMenuCommand('libremdb instance list',   () => openInstancesList('libremdb'));
+GM.registerMenuCommand('Nitter instance',            () => setInstance('nitter'));
 //GM.registerMenuCommand('Nitter instance list',     () => openInstancesList('nitter'));
-GM.registerMenuCommand('Scribe instance',          () => setInstance('scribe'));
+GM.registerMenuCommand('Scribe instance',            () => setInstance('scribe'));
 //GM.registerMenuCommand('Scribe instance list',     () => openInstancesList('scribe'));
 GM.registerMenuCommand('ProxiTok instance',          () => setInstance('proxitok'));
-//GM.registerMenuCommand('ProxiTok instance list',     () => openInstancesList('proxitok'));
-GM.registerMenuCommand('Teddit instance',          () => setInstance('teddit'));
-//GM.registerMenuCommand('Teddit instance list',     () => openInstancesList('teddit'));
-GM.registerMenuCommand('Toggle rewrite on hover',  toggleRewriteOnHover);
+//GM.registerMenuCommand('ProxiTok instance list',   () => openInstancesList('proxitok'));
+GM.registerMenuCommand('Redlib instance',            () => setInstance('redlib'));
+//GM.registerMenuCommand('Redlib instance list',     () => openInstancesList('redlib'));
+GM.registerMenuCommand('Toggle rewrite on hover', toggleRewriteOnHover);
