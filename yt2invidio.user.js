@@ -5,7 +5,7 @@
 // @description Point YouTube links to Invidious, Twitter to Nitter, Instagram to Bibliogram, Reddit to Redlib, Imgur to Rimgo, Medium to Scribe, TikTok to ProxiTok, Fandom to BreezeWiki, IMDb to libremdb. Use Ctrl+Alt+click to open in original service, or alt+o in the instances to open the the original site.
 // @license     CC BY-NC-SA
 // @include     *
-// @version     2.9.6
+// @version     2.9.7
 // @run-at      document-idle
 // @grant       GM.getValue
 // @grant       GM.setValue
@@ -166,7 +166,7 @@ function rewriteEmbeddedLinks() {
         dataSrc = true;
       }
       if (src == null) continue;
-      if (src.match(/((www|m)\.)?youtube(?:-nocookie)?\.com(\/(watch\?v|playlist\?list)=[a-z0-9_-]+)/i) || src.match(/((www|m)\.)?youtube(?:-nocookie)?\.com(\/(c|channel|embed)\/[a-z0-9_-]+)/i)) {
+      if (src.match(/((www|m)\.)?youtube(?:-nocookie)?\.com(\/(channel|embed|watch\?v|playlist\?list)=[a-z0-9_-]+)/i) || src.match(/((www|m)\.)?youtube(?:-nocookie)?\.com(\/(c|channel|embed)\/[a-z0-9_-]+)/i)) {
         if (RegExp.$4 == 'channel' || RegExp.$4 == 'embed')
           embProxy = '?local='+ cfg.invProxy;
         else
