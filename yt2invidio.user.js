@@ -2,10 +2,10 @@
 // @name        YT2Invidio
 // @namespace   de.izzysoft
 // @author      Izzy + ltGuillaume
-// @description Point YouTube links to Invidious, Twitter to Nitter, Instagram to Bibliogram, Reddit to Redlib, Imgur to Rimgo, Medium to Scribe, TikTok to ProxiTok, Fandom to BreezeWiki, IMDb to libremdb. Use Ctrl+Alt+click to open in original service, or alt+o in the instances to open the the original site.
+// @description Point YouTube links to Invidious, Twitter/X to Nitter, Instagram to Bibliogram, Reddit to Redlib, Imgur to Rimgo, Medium to Scribe, TikTok to ProxiTok, Fandom to BreezeWiki, IMDb to libremdb. Use Ctrl+Alt+click to open in original service, or alt+o in the instances to open the the original site.
 // @license     CC BY-NC-SA
 // @include     *
-// @version     2.9.7
+// @version     2.9.8
 // @run-at      document-idle
 // @grant       GM.getValue
 // @grant       GM.setValue
@@ -30,7 +30,7 @@ const instancesLists = {
   libremdb:   'https://github.com/zyachel/libremdb#instances'
 },
 
-  orgHosts = { invidious: 'youtu.be', nitter: 'twitter.com', bibliogram: 'instagram.com', redlib: 'old.reddit.com', rimgo: 'imgur.com', scribe: 'medium.com', proxitok: 'tiktok.com', breezewiki: 'fandom.com', libremdb: 'imdb.com' };
+  orgHosts = { invidious: 'youtu.be', nitter: 'x.com', bibliogram: 'instagram.com', redlib: 'old.reddit.com', rimgo: 'imgur.com', scribe: 'medium.com', proxitok: 'tiktok.com', breezewiki: 'fandom.com', libremdb: 'imdb.com' };
 
 // Default config
 const defaultConfig = {
@@ -113,8 +113,8 @@ function rewriteLink(elem) {
     elem.href='https://'+ cfg.hosts.invidious+RegExp.$3 +'?local='+ cfg.invProxy;
 
   // Nitter
-  else if (cfg.hosts.nitter != '' && elem.href.match(/(mobile\.)?twitter\.com\/([^&#]+)/i))
-    elem.href='https://'+ cfg.hosts.nitter +'/'+ RegExp.$2;
+  else if (cfg.hosts.nitter != '' && elem.href.match(/(mobile\.)?(twitter|x)\.com\/([^&#]+)/i))
+    elem.href='https://'+ cfg.hosts.nitter +'/'+ RegExp.$3;
 
   // Bibliogram
   else if (cfg.hosts.bibliogram != '' && elem.href.match(/(www\.)?instagram\.com\/(p|tv)\/([^&#/]+)/i))  // Profile
