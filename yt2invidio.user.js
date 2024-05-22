@@ -2,10 +2,10 @@
 // @name        YT2Invidio
 // @namespace   de.izzysoft
 // @author      Izzy + ltGuillaume
-// @description Point YouTube links to Invidious, Twitter/X to Nitter, Instagram to Bibliogram, Reddit to Redlib, Imgur to Rimgo, Medium to Scribe, TikTok to ProxiTok, Fandom to BreezeWiki, IMDb to libremdb. Use Ctrl+Alt+click to open in original service, or alt+o in the instances to open the the original site.
+// @description Point YouTube links to Invidious, Twitter/X to Nitter, Instagram to Bibliogram, Reddit to Redlib, Imgur to Rimgo, Medium to Scribe, TikTok to ProxiTok, Fandom to BreezeWiki, IMDb to libremdb. Use Ctrl+Alt+click to open in original service, or F4 in the instances to open the the original site.
 // @license     CC BY-NC-SA
 // @include     *
-// @version     2.9.8
+// @version     2.9.9
 // @run-at      document-idle
 // @grant       GM.getValue
 // @grant       GM.setValue
@@ -72,7 +72,7 @@ function init(config) {
     document.removeEventListener('mouseover', triggerRewrite, true);
   document.addEventListener('click', triggerRewrite, true);
   document.addEventListener('auxclick', triggerRewrite, true);
-  document.addEventListener('keypress', openOriginalHost);
+  document.addEventListener('keydown', openOriginalHost);
 }
 
 function triggerRewrite(e) {
@@ -91,7 +91,7 @@ function triggerRewrite(e) {
 }
 
 function openOriginalHost(e) {
-  if (e.altKey && e.key == 'o') {
+  if (e.key == 'F4') {
     for (i in cfg.hosts) {
       var host = cfg.hosts[i];
       if (host.length && location.href.indexOf('https://'+ host) == 0)
