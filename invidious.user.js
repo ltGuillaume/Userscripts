@@ -1,10 +1,11 @@
 // ==UserScript==
-// @name        Clean Invidious (yewtu.be)
+// @name        Invidious Margins (yewtu.be, inv.citw.lgbt)
 // @namespace   ltguillaume
 // @description Clean up Invidious UI
 // @author      Guillaume
-// @version     1.2.2
+// @version     1.2.4
 // @match       https://yewtu.be/*
+// @match       https://invidious.privacyredirect.com/*
 // @grant       GM_addStyle
 // ==/UserScript==
 
