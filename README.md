@@ -1,4 +1,4 @@
-<img width="128" src="SCRIPT.png" align="right">
+<img width="256" src="SCRIPT.png" align="right">
 
 # Userscripts
 by ltGuillaume: [Codeberg](https://codeberg.org/ltGuillaume) | [GitHub](https://github.com/ltGuillaume) | [Buy me a beer](https://buymeacoff.ee/ltGuillaume) 🍺
