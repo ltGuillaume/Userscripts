@@ -3,7 +3,7 @@
 // @namespace   ltguillaume
 // @description CSS, prevent . from opening devmode, F10 to open on Codeberg
 // @author      ltGuillaume
-// @version     2.5.9
+// @version     2.6.1
 // @icon        https://github.com/favicon.ico
 // @match       *://*.github.com/*
 // @grant       GM_addStyle
@@ -15,8 +15,10 @@
 GM_addStyle(`
 
 :root[data-color-mode="light"] {
-	--color-canvas-default: var(--color-scale-gray-1) !important;
-	--color-codemirror-bg:  var(--color-scale-gray-0) !important;
+	--bgColor-default:      #efefef !important;
+	--bgColor-muted:        #f8f8f8 !important;
+	--color-canvas-default: #efefef !important;
+	--color-codemirror-bg:  #f8f8f8 !important;
 /*
 	--color-canvas-subtle:  var(--color-scale-gray-2);
 	--color-canvas-overlay: var(--color-scale-gray-1);
@@ -27,17 +29,28 @@ GM_addStyle(`
 */
 }
 
-:root[data-color-mode="light"] table,
-:root[data-color-mode="light"] .Box-body,
-:root[data-color-mode="light"] .comment,
-:root[data-color-mode="light"] .js-snippet-clipboard-copy-unpositioned,
-:root[data-color-mode="light"] .markdown-body img {
-	background-color: var(--color-scale-gray-0) !important;
+:root[data-color-mode="light"] .AppHeader,
+:root[data-color-mode="light"] .gh-header .gh-header-sticky.is-stuck + .gh-header-shadow {
+	background-color: #f9fafb;
 }
 
-.markdown-body .highlight pre,
-.markdown-body pre {
-	background-color: var(--color-scale-gray-1) !important;
+:root[data-color-mode="light"] table,
+:root[data-color-mode="light"] .tabnav-tab[aria-selected="true"],
+:root[data-color-mode="light"] .Box,
+:root[data-color-mode="light"] .Box-body,
+:root[data-color-mode="light"] .edit-comment-hide,
+:root[data-color-mode="light"] .js-snippet-clipboard-copy-unpositioned,
+:root[data-color-mode="light"] .markdown-body img {
+	background-color: #f8f8f8 !important;
+}
+
+:root[data-color-mode="light"] .CommentBox-container {
+	background-color: #fff;
+}
+
+:root[data-color-mode="light"] .markdown-body .highlight pre,
+:root[data-color-mode="light"] .markdown-body pre {
+	background-color: #efefef !important;
 }
 
 `);
